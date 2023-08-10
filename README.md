@@ -16,7 +16,6 @@ Repository containing required files and scripts to deploy the Driving Test usin
       - [Configuring AWS](#configuring-aws)
     - [Frontend](#frontend)
   - [Data Processing](#data-processing)
-  - [To-Do](#to-do)
 
 ## Folder Structure
 
@@ -46,7 +45,6 @@ _Note: Setting up of Amazon Web Service requirements is explained in the [**Acco
 
 - AWS Command Line Interface (CLI)
 - AWS Serverless Application Model (SAM) CLI
-- Elm
 - Git
 - Node.js
 - Python
@@ -121,7 +119,3 @@ _Note: Setting up of Amazon Web Service requirements is explained in the [**Acco
     - **Linux/macOS**: Right click in the folder and choose _Open in Terminal_.
     - **Windows**: In the File Explorer window, go to the _File_ tab, and choose _Open Windows PowerShell_.
 5. Run `make data`. The final processed data is stored in `file.csv`.
-
-## To-Do
-
-1. Polish and push final repo.
