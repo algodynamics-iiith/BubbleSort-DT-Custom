@@ -193,15 +193,14 @@ const CodeEditor = () => {
     // to be implemented
     Swal.fire({
       title: "Are you sure you want to submit?",
-      text: "You would not be able to go back!",
+      text: "You would not be able to go back! Ensure that you have submitted your code for evaluation before moving to the next section!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Submit and move to Next Section",
+      confirmButtonText: "Move to Next Section",
       backdrop: true,
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       if (result.isConfirmed) {
-        onClickSubmit;
         let current = parseInt(localStorage.getItem("current"));
         current++;
         localStorage.setItem("current", current);
