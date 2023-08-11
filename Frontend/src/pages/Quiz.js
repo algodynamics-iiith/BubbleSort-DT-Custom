@@ -119,7 +119,7 @@ const QuizPage = () => {
       text: "You would not be able to go back!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Next Page",
+      confirmButtonText: "Next Section",
       backdrop: true,
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
