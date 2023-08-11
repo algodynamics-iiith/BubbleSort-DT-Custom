@@ -330,7 +330,7 @@ const QuizPage = () => {
             }
             className="w-[49%] py-3 bg-indigo-600 rounded-lg margin"
           >
-            {page === Object.keys(quiz).length - 1 ? "Submit Answers" : "Next Page"}
+            {page === Object.keys(quiz).length - 1 ? "Submit Answers and Move to Next Section" : "Next Section"}
           </button>
         </div>
         <br />
