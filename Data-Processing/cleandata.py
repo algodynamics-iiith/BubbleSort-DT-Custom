@@ -64,11 +64,10 @@ def extractCurrentState(obj):
     import json
     obj_json = json.loads(obj)
     
-    numberList = obj_json['state']['M']['ts']['M']
     state = {}
-    state['numbers'] = [obj['N'] for obj in numberList['numbers']['L']]
-    state['i'] = numberList['i']['N']
-    state['b'] = numberList['b']['N']    
+    state['numbers'] = [obj['N'] for obj in obj_json['numbers']['L']]
+    state['i'] = obj_json['i']['N']
+    state['b'] = obj_json['b']['N']    
     return state
 
 def createRunMap(filename):

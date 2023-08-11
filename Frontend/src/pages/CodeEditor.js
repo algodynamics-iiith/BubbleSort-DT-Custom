@@ -201,6 +201,7 @@ const CodeEditor = () => {
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       if (result.isConfirmed) {
+        onClickSubmit;
         let current = parseInt(localStorage.getItem("current"));
         current++;
         localStorage.setItem("current", current);
