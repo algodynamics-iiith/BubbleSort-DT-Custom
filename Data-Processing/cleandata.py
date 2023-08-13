@@ -6,7 +6,7 @@ import sys
 #     Arr
 #     i
 #     b
-#   ]
+# ]
   
 # Action = Enum [
 #     IncrementIAndSwap
@@ -19,38 +19,41 @@ import sys
 #     ConfirmSubmit
 #     CancelSubmit
 #     Init
-#   ]
+# ]
 
 # Effect = [
 #     action: Action
 #     timestamp: UnixTimeStamp
 #     newState: State
-#   ]
+# ]
 
 # Run = [
 #     runId: String
 #     initState : State
 #     SequenceOfEffects: List<Effect>
 #     starttime : UnixTimeStamp 
-#   ]
+# ]
 
-# WARNING !!! 
-# runId, initState,startTime has been removed from the Run struct in the code below
-# This is done to avoid redundant data, because
-# , timeStamps and initState are part of the SequenceOfAffects array.
-# And the Run itself is referenced with the runId.
+# Experiment = [
+#     experimentId: Number
+#     date: Date
+#     userMap: map<userId, List<runId>>
+#     driveRun: map<runId, Run>
+# ]
 
-#   Experiment = [
-#       experimentId: Number
-#       date: Date
-#       userMap: map<userId, List<runId>>
-#       driveRun: map<runId, Run>
-#   ]
 
 def createUserMap(filename):
+    """
+    Function to create a mapping between userIds and their runIds from a csv file.
+
+    Parameters
+    ---------
+
+    - `filename`: Name or Path of file containing the runTable.
+    """
+
     usermap = pd.read_csv(filename)
     print("Number of runs:",len(usermap))
-    usemap = usermap.groupby('userId')
     usermap = usermap.reset_index(drop=True)
 
     dfs = {}
@@ -61,21 +64,37 @@ def createUserMap(filename):
     return dfs
 
 def extractCurrentState(obj):
+    """
+    Function to read the information of the current state.
+
+    Parameters
+    ----------
+
+    - `obj`: JSON object containing run action details.
+    """
     import json
     obj_json = json.loads(obj)
-    
+
     state = {}
     state['numbers'] = [obj['N'] for obj in obj_json['numbers']['L']]
     state['i'] = obj_json['i']['N']
-    state['b'] = obj_json['b']['N']    
+    state['b'] = obj_json['b']['N']
     return state
 
 def createRunMap(filename):
+    """
+    Function to create a mapping between runIds and their run data from a csv file.
+
+    Parameters
+    ---------
+
+    - `filename`: Name or Path of file containing the runTransitionTable.
+    """
     runmap = pd.read_csv(filename)
     print("Number of run actions:",len(runmap))
     runmap = runmap.groupby('runId').apply(lambda x: x.sort_values('timestamp'))
     runmap = runmap.reset_index(drop=True)
-    
+
     dfs = {}
     for name,group in runmap.groupby('runId'):
         try:
@@ -88,7 +107,7 @@ def createRunMap(filename):
             dfs[name] = df_selected.to_dict(orient='records')
         except Exception as e:
             print("Could not parse atttempt for ", name,e)
-    
+
     print("Run transitions for each runId have been created.")
     return dfs
 

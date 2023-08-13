@@ -55,9 +55,11 @@ frontend: baseurl poc platform-init platform-deploy
 
 # Process the experimental data.
 summary:
+	python -m pip install --upgrade -r ./Data-Processing/pythonRequirements.txt --no-cache-dir
 	python ./Data-Processing/cleandata.py ./Data-Processing/runTable.csv ./Data-Processing/runTransitionTable.csv ./Data-Processing/experiment.json
 	python ./Data-Processing/prelim_scores.py ./Data-Processing/experiment.json ./Data-Processing/metrics.json
 	python ./Data-Processing/dumpdata.py ./Data-Processing/metrics.json ./Data-Processing/summary.csv
+# ./Data-Processing/pythonRequirements.txt ->  Contains the list of required external Python packages.
 # ./Data-Processing/runTable.csv ->  Contains the mapping of userId and runId.
 # ./Data-Processing/runTransitionTable.csv ->  Contains the mapping of runId and its actions.
 # ./Data-Processing/experiment.json -> Contains all the data pertaining to the experiment.

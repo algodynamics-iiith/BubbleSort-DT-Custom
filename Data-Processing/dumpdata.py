@@ -15,13 +15,28 @@ import pandas as pd
 from flatten_json import flatten
 
 def read_json_from_file(file_path):
-    """ Reading the data from JSON file. """
+    """
+    Reading the data from JSON file.
+
+    Parameters
+    ----------
+
+    - `file_path`: Name or Path of file containing metrics data.
+    """
     with open(file_path, 'r') as file:
         json_data = json.load(file)
     return json_data
 
 def delete_keys_from_json(json_data, keys_to_delete):
-    """ Deleting select keys from the data. """
+    """
+    Deleting select keys from the data.
+
+    Parameters
+    ----------
+
+    - `json_data`: JSON object containing metrics.
+    - `keys_to_delete`: Array containing strings of keys of delete from the metrics.
+    """
     # Iterate over each top value in the JSON object
     for top_value in json_data.values():
         # Check if the top value is a JSON object
@@ -29,19 +44,34 @@ def delete_keys_from_json(json_data, keys_to_delete):
             # Remove keys from the top value
             for key in keys_to_delete:
                 top_value.pop(key, None)
-    
+
     # Return the modified JSON object
     return json_data
 
 def json_to_transposed_dataframe(json_data):
-    """ Transposing the data to have headers at the top. """
+    """
+    Transposing the data to have headers at the top.
+
+    Parameters
+    ----------
+
+    - `json_data`: JSON object containing metrics.
+    """
     df = pd.DataFrame(json_data)
     transposed_df = df.T  # Transpose the DataFrame
     return transposed_df
     # return df
 
 def write_dataframe_to_csv(dataframe, filename):
-    """ Writing data into CSV file. """
+    """
+    Writing data into CSV file.
+
+    Parameters
+    ----------
+
+    - `dataframe`: JSON object containing metrics.
+    - `filename`: Name or Path of file where the final data is to be stored as a csv file.
+    """
     dataframe.to_csv(filename, index=False)
 
 def flatten_invariants(json_data):
@@ -56,11 +86,12 @@ def flatten_invariants(json_data):
             #print("Removing: " + json.dumps(valbackup, indent=3))
             val.update(flat)
             #print("Added\n")
-    
+
     return json_data
 
 def runmain():
     """ Main wrapper function. """
+
     if len(sys.argv) < 3:
         print("Error: Please provide two file names as command-line arguments, for example 'python dumpdata.py metrics.json summary.csv'.")
         print("Usage: python program_name.py <json file to read from> <csv file to write into>")

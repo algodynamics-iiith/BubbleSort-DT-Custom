@@ -49,7 +49,14 @@ import sys
 # whether final state is correct or not
 
 def cleanupUndoAndRedo(actions):
-    """ Function to process undo and redo actions. """
+    """
+    Function to process undo and redo actions.
+
+    Parameters
+    ----------
+
+    - `actions`: Array containing all the actions.
+    """
 
     # Process the actions
     processed_actions = []
@@ -73,7 +80,14 @@ def cleanupUndoAndRedo(actions):
     return processed_actions
 
 def cleanupCancelSubmit(actions):
-    """ Function to remove submit actions which aren't confirmed. """
+    """
+    Function to remove submit actions which aren't confirmed.
+
+    Parameters
+    ----------
+
+    - `actions`: Array containing all the actions.
+    """
 
     boundary = len(actions) - 1;
     i = 0
@@ -89,7 +103,14 @@ def cleanupCancelSubmit(actions):
     return actions
 
 def preprocess_driveRun(driveRun):
-    """ Function to clean up the run. """
+    """
+    Function to clean up the run.
+
+    Parameters
+    ----------
+
+    - `driveRun`: Array containing the run details.
+    """
 
     # convert all actions to action Enums
     for runID in driveRun.keys():
@@ -129,7 +150,15 @@ def preprocess_driveRun(driveRun):
     return driveRun
 
 def find_intersections(user_run, golden_run):
-    """ Function to find all intersection points between runs. """
+    """
+    Function to find all intersection points between runs.
+
+    Parameters
+    ----------
+
+    - `user_run`: Array containing all the run actions of the user.
+    - `golden_run`: Array containing all the run actions of the golden run.
+    """
 
     intersections = []
     goldenRunIndex = 0
@@ -149,7 +178,15 @@ def find_intersections(user_run, golden_run):
     return intersections
 
 def find_spans(user_run, golden_run):
-    """ Function to find all spans between runs. """
+    """
+    Function to find all spans between runs.
+
+    Parameters
+    ----------
+
+    - `user_run`: Array containing all the run actions of the user.
+    - `golden_run`: Array containing all the run actions of the golden run.
+    """
     mergeSpans = []
     splitSpans = []
     intersections = find_intersections(user_run,golden_run)
@@ -201,7 +238,14 @@ def find_spans(user_run, golden_run):
     }
 
 def generate_invariants(user_run):
-    """ Function to generate invariants. """
+    """
+    Function to generate invariants.
+
+    Parameters
+    ----------
+
+    - `user_run`: Array containing all the run actions of the user.
+    """
 
     invariants = {
         'inv1': 0,
@@ -241,11 +285,20 @@ def generate_invariants(user_run):
     return invariants
 
 def userRunList(exprun):
+    """
+    Function to generate the user run.
+
+    Parameters
+    ----------
+
+    - `user_run`: Array containing all the run actions of the user.
+    - `golden_run`: Array containing all the run actions of the golden run.
+    """
     runlist = list()
     for i in exprun:
         # print(i["state"])
         runlist.append((i["type"].value, i["state"]))
-        
+
     return runlist
 
 def generate_prelim_scores():
@@ -316,11 +369,12 @@ def generate_prelim_scores():
     #return {"runs": metrics}
 
 def runmain():
+    """ Main wrapper function. """
     prelim_scores = generate_prelim_scores()
     # write data to a json file
     with open(sys.argv[2], 'w') as f:
         json.dump(prelim_scores, f)
-    
+
     print("JSON file with metrics has been generated.")
 
 if __name__ == "__main__":

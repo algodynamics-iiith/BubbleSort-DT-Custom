@@ -13,6 +13,7 @@ class Action(Enum):
     CancelSubmit = 'CancelSubmit'
 
 def convert_to_action(actionString):
+    """ Function to convert string of the name of an action into an Action. """
     if actionString == 'SwapAndIncrement':
         return Action.SwapAndIncrement
     elif actionString == 'Increment':
@@ -37,7 +38,14 @@ def convert_to_action(actionString):
         raise Exception("Action not found")
 
 def generate_golden_run(array):
-    """ Function to generate the golden bubble sort run for an input array. """
+    """
+    Function to generate the golden bubble sort run for an input array.
+
+    Parameters
+    ----------
+
+    - `array`: Initial array.
+    """
     # creating a duplicate array to avoid changing the input array
     arr = []
     for index in range(len(array)):
